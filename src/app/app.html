@@ -1,0 +1,196 @@
+<h1>Authentification</h1>
+
+@if (user$ | async; as user) {
+  <p>Connecté avec : {{ user.email }}</p>
+
+  <button type="button" (click)="deconnexion()">
+    Se déconnecter
+  </button>
+} @else {
+  <div>       
+    <label for="email">Email :</label>
+    <input
+      id="email"
+      type="email"
+      name="email"
+      [(ngModel)]="authEmail"
+      placeholder="exemple@email.com"
+    />
+  </div>
+
+  <div>
+    <label for="password">Mot de passe :</label>
+    <input
+      id="password"
+      type="password"
+      name="password"
+      [(ngModel)]="authPassword"
+      placeholder="Mot de passe"
+    />
+  </div>
+
+  <button type="button" (click)="inscription()">
+    Créer un compte
+  </button>
+
+  <button type="button" (click)="connexion()">
+    Se connecter
+  </button>
+
+
+}
+
+<hr />
+
+<hr />
+<h1>Rechercher un produit</h1>
+
+<label for="barcode">Code-barres :</label>
+
+<input
+  id="barcode"
+  #barcodeInput
+  type="text"
+  placeholder="Exemple : 3017624010701"
+/>
+
+<button type="button" (click)="chercherProduit(barcodeInput.value)">
+  Chercher
+</button>
+
+@if (openFoodProduct$ | async; as response) {
+  @if (response.status === 1) {
+    @if (response.product; as produit) {
+      <h2>Produit trouvé</h2>
+
+      <p>Nom du produit : {{ produit.product_name }}</p>
+      <p>Marque : {{ produit.brands }}</p>
+
+      @if (produit.image_url) {
+        <img
+          [src]="produit.image_url"
+          alt="Image du produit"
+          width="200"
+        />
+      } @else {
+        <p>Image non disponible</p>
+      }
+    }
+  } @else {
+    <p>Produit introuvable</p>
+  }
+}
+
+
+<h1>Gestion des produits Firebase</h1>
+
+<form>
+  <div>
+    <label for="name">Nom du produit :</label>
+    <input
+      id="name"
+      type="text"
+      name="name"
+      [(ngModel)]="productForm.name"
+      placeholder="Exemple : Nutella"
+    />
+  </div>
+
+  <div>
+    <label for="quantity">Quantité :</label>
+    <input
+      id="quantity"
+      type="number"
+      name="quantity"
+      [(ngModel)]="productForm.quantity"
+    />
+  </div>
+
+  <div>
+    <label for="unit">Unité :</label>
+    <input
+      id="unit"
+      type="text"
+      name="unit"
+      [(ngModel)]="productForm.unit"
+      placeholder="Exemple : piece"
+    />
+  </div>
+
+  <div>
+    <label for="location">Emplacement :</label>
+    <input
+      id="location"
+      type="text"
+      name="location"
+      [(ngModel)]="productForm.location"
+      placeholder="Exemple : pantry"
+    />
+  </div>
+
+  <div>
+    <label for="minQuantity">Quantité minimum :</label>
+    <input
+      id="minQuantity"
+      type="number"
+      name="minQuantity"
+      [(ngModel)]="productForm.minQuantity"
+    />
+  </div>
+
+  @if (selectedProductId) {
+    <button type="button" (click)="modifierProduit()">
+      Modifier produit
+    </button>
+
+    <button type="button" (click)="resetForm()">
+      Annuler
+    </button>
+  } @else {
+    <button type="button" (click)="ajouterProduit()">
+      Ajouter produit
+    </button>
+  }
+</form>
+
+<h2>Liste des produits</h2>
+
+@if (products$ | async; as products) {
+  @if (products.length > 0) {
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Quantité</th>
+          <th>Unité</th>
+          <th>Emplacement</th>
+          <th>Quantité minimum</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @for (product of products; track product.id) {
+          <tr>
+            <td>{{ product.name }}</td>
+            <td>{{ product.quantity }}</td>
+            <td>{{ product.unit }}</td>
+            <td>{{ product.location }}</td>
+            <td>{{ product.minQuantity }}</td>
+            <td>
+              <button type="button" (click)="selectionnerProduit(product)">
+                Modifier
+              </button>
+
+              <button type="button" (click)="supprimerProduit(product.id)">
+                Supprimer
+              </button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  } @else {
+    <p>Aucun produit pour le moment.</p>
+  }
+}

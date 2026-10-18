@@ -1,0 +1,155 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  padding: 32px;
+  background-color: #f7f3f0;
+  color: #1f2933;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  margin: 28px 0 14px;
+  font-size: 40px;
+  color: #06142d;
+}
+
+h2 {
+  margin: 28px 0 16px;
+  font-size: 26px;
+  color: #111827;
+}
+
+form {
+  max-width: 520px;
+  padding: 20px;
+  background-color: white;
+  border: 1px solid #ddd6d0;
+  border-radius: 8px;
+  margin-bottom: 28px;
+}
+
+form div {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 14px;
+}
+
+label {
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+input {
+  height: 36px;
+  padding: 6px 10px;
+  border: 1px solid #b8b0aa;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+input:focus {
+  outline: none;
+  border-color: #8b5e34;
+}
+
+button {
+  padding: 8px 14px;
+  margin: 4px 6px 4px 0;
+  border: none;
+  border-radius: 6px;
+  background-color: #8b5e34;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #6f4727;
+}
+
+table {
+  width: 100%;
+  max-width: 900px;
+  border-collapse: collapse;
+  background-color: white;
+  margin-top: 12px;
+}
+
+th,
+td {
+  padding: 10px;
+  border: 1px solid #ddd6d0;
+  text-align: left;
+}
+
+th {
+  background-color: #efe7df;
+  font-weight: 700;
+}
+
+td button {
+  background-color: #2563eb;
+}
+
+td button:hover {
+  background-color: #1d4ed8;
+}
+
+td button:last-child {
+  background-color: #dc2626;
+}
+
+td button:last-child:hover {
+  background-color: #b91c1c;
+}
+
+img {
+  display: block;
+  margin: 16px 0;
+  max-width: 220px;
+  border-radius: 8px;
+  border: 1px solid #ddd6d0;
+  background-color: white;
+}
+
+p {
+  font-size: 16px;
+}
+
+/* Alignement email + mot de passe */
+:host > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+:host > div label {
+  width: 120px;
+  margin: 0;
+  text-align: right;
+}
+
+:host > div input {
+  width: 260px;
+  box-sizing: border-box;
+}
+
+/* Alignement de la recherche code-barres */
+label[for="barcode"] {
+  display: inline-block;
+  width: 120px;
+  text-align: right;
+  margin-right: 8px;
+}
+
+#barcode {
+  width: 260px;
+  box-sizing: border-box;
+  margin-right: 0;
+}
+
+label[for="barcode"] + input + button {
+  height: 42px;
+  vertical-align: middle;
+}
